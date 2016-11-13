@@ -25,6 +25,9 @@ require ROOT_PATH.'./install/include/install_function.php';
 require ROOT_PATH.'./install/include/install_lang.php';
 
 $view_off = getgpc('view_off');
+$step = intval(getgpc('step', 'R')) ? : 0;
+$method = getgpc('method');
+$uchidden = getgpc('uchidden');
 
 define('VIEW_OFF', $view_off ? TRUE : FALSE);
 
@@ -38,15 +41,10 @@ $allow_method = [
 	'tablepre_check'
 ];
 
-$step = intval(getgpc('step', 'R')) ? : 0;
-$method = getgpc('method');
-$uchidden = getgpc('uchidden');
-
 if(empty($method) || !in_array($method, $allow_method)) {
 	$method = isset($allow_method[$step]) ? $allow_method[$step] : '';
 }
 
-echo $method;
 if(file_exists($lockfile) && $method != 'ext_info') {
 	show_msg('install_locked', '', 0);
 } elseif(!class_exists('dbstuff')) {
@@ -65,11 +63,7 @@ if(in_array($method, array('app_reg', 'ext_info'))) {
 
 switch($method) {
 
-	# step = 0
-	case 'show_license':
-		transfer_ucinfo($_POST);
-		show_license();
-		break;
+	# step =0  move to default case
 
 	# step = 1
 	case 'env_check':
@@ -506,6 +500,10 @@ switch($method) {
 		}
 		break;
 
+	# set step = 0
 	default:
-
+		$step = 0;
+		transfer_ucinfo($_POST);
+		show_license();
+		break;
 }
