@@ -10,8 +10,8 @@
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 @set_time_limit(1000);
 
-define('IN_DISCUZ', TRUE);
-define('IN_COMSENZ', TRUE);
+define('IN_DISCUZ', true);
+define('IN_COMSENZ', true);
 define('ROOT_PATH', dirname(__FILE__).'/../');
 
 require ROOT_PATH.'./source/discuz_version.php';
@@ -29,7 +29,7 @@ $step = intval(getgpc('step', 'R')) ? : 0;
 $method = getgpc('method');
 $uchidden = getgpc('uchidden');
 
-define('VIEW_OFF', $view_off ? TRUE : FALSE);
+define('VIEW_OFF', $view_off ? true : false);
 
 $allow_method = [
 	'show_license',
@@ -53,7 +53,7 @@ if(file_exists($lockfile) && $method != 'ext_info') {
 
 timezone_set();
 
-if(in_array($method, array('app_reg', 'ext_info'))) {
+if(in_array($method, ['app_reg', 'ext_info'])) {
 	$isHTTPS = ($_SERVER['HTTPS'] && strtolower($_SERVER['HTTPS']) != 'off') ? true : false;
 	$PHP_SELF = $_SERVER['PHP_SELF'] ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME'];
 	$bbserver = 'http'.($isHTTPS ? 's' : '').'://'.preg_replace("/\:\d+/", '', $_SERVER['HTTP_HOST']).($_SERVER['SERVER_PORT'] && $_SERVER['SERVER_PORT'] != 80 && $_SERVER['SERVER_PORT'] != 443 ? ':'.$_SERVER['SERVER_PORT'] : '');
@@ -101,7 +101,7 @@ switch($method) {
 							continue;
 						}
 						$submit = false;
-						VIEW_OFF or $error_msg[$key][$k] = 1;
+						VIEW_OFF || $error_msg[$key][$k] = 1;
 					}
 				}
 			}

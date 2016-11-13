@@ -61,7 +61,7 @@ function check_db($dbhost, $dbuser, $dbpw, $dbname, $tablepre) {
 	if(!function_exists('mysql_connect') && !function_exists('mysqli_connect')) {
 		show_msg('undefine_func', 'mysql_connect', 0);
 	}
-	$mysqlmode = function_exists('mysql_connect') ? 'mysql' : 'mysqli';
+	$mysqlmode = function_exists('mysql_connecti') ? 'mysqli' : 'mysql';
 	$link = ($mysqlmode == 'mysql') ? @mysql_connect($dbhost, $dbuser, $dbpw) : new mysqli($dbhost, $dbuser, $dbpw);
 	if(!$link) {
 		$errno = ($mysqlmode == 'mysql') ? mysql_errno() : mysqli_errno();
