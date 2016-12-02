@@ -39,5 +39,3 @@ foreach($plugins as $pluginid) {
 		}
 	}
 }
-
-?>

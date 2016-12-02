@@ -382,5 +382,3 @@ $serialize_sql_setting = [
     ],
   ],
 ];
-
-?>
